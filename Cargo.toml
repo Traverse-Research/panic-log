@@ -1,6 +1,6 @@
 [package]
-name = "rust-template"
-version = "0.0.0"
+name = "panic-log"
+version = "0.1.0"
 authors = ["Traverse Research <support@traverseresearch.nl>"]
 edition = "2021"
 license = "MIT"
