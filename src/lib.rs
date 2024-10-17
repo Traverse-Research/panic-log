@@ -3,7 +3,14 @@
 use std::{backtrace, panic, thread};
 
 pub struct Configuration {
+    /// Always force capture a backtrace.
+    ///
+    /// If false, the presence of a backtrace will depend on the value of `RUST_BACKTRACE`.
+    /// See [`std::backtrace::Backtrace`] for more info
     pub force_capture: bool,
+
+    /// Keep the originally set panic hook, continuing any normal panic behaviour
+    /// and custom panic behaviour set.
     pub keep_original_hook: bool,
 }
 
