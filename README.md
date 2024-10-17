@@ -25,5 +25,7 @@ panic-log = "0.1.0"
 Call this somewhere at the start of your program (after initializing your logger):
 
 ```rust
+use panic_log::{Configuration};
+[...]
 panic_log::initialize_hook(Configuration::default());
 ```
