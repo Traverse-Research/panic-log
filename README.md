@@ -1,4 +1,4 @@
-# rust-template title
+# 🚨 panic-log
 
 [![Actions Status](https://github.com/Traverse-Research/rust-template/actions/workflows/ci.yml/badge.svg)](https://github.com/Traverse-Research/rust-template/actions)
 [![Latest version](https://img.shields.io/crates/v/rust-template.svg?logo=rust)](https://crates.io/crates/rust-template)
