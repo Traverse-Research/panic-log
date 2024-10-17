@@ -4,7 +4,7 @@ use std::{
     sync::{Arc, Mutex},
 };
 
-use rust_template::{initialize_hook, Configuration};
+use panic_log::{initialize_hook, Configuration};
 
 #[test]
 #[should_panic]
