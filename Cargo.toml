@@ -10,3 +10,7 @@ description = "A useful description"
 include = ["src", "LICENSE"]
 categories = [] # https://crates.io/category_slugs
 keywords = []
+
+
+[dependencies]
+log = "0.4"
