@@ -10,7 +10,8 @@
 
 [![Banner](banner.png)](https://traverseresearch.nl)
 
-TODO: Write a description
+A simple crate that allows you to write the panic message and backtrace to the output of the `log` macro as `error`, while providing
+the possibility to keep the original panic hooks.
 
 ## Usage
 
@@ -18,9 +19,11 @@ Add this to your Cargo.toml:
 
 ```toml
 [dependencies]
-rust-template = "0.0.0"
+panic-log = "0.1.0"
 ```
 
+Call this somewhere at the start of your program (after initializing your logger):
+
 ```rust
-// A code example
+    initialize_hook(Configuration::default());
 ```
