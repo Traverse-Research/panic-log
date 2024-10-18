@@ -1,8 +1,8 @@
 # 🚨 panic-log
 
-[![Actions Status](https://github.com/Traverse-Research/panic-log/actions/workflows/ci.yml/badge.svg)](https://github.com/Traverse-Research/rust-template/actions)
+[![Actions Status](https://github.com/Traverse-Research/panic-log/actions/workflows/ci.yml/badge.svg)](https://github.com/Traverse-Research/panic-log/actions)
 [![Latest version](https://img.shields.io/crates/v/panic-log.svg?logo=rust)](https://crates.io/crates/panic-log)
-[![Documentation](https://docs.rs/rust-template/badge.svg)](https://docs.rs/rust-template)
+[![Documentation](https://docs.rs/panic-log/badge.svg)](https://docs.rs/panic-log)
 [![MSRV](https://img.shields.io/badge/rustc-1.74.0+-ab6000.svg)](https://blog.rust-lang.org/2023/11/16/Rust-1.74.0.html)
 [![Lines of code](https://tokei.rs/b1/github/Traverse-Research/panic-log)](https://github.com/Traverse-Research/panic-log)
 ![MIT](https://img.shields.io/badge/license-MIT-blue.svg)
