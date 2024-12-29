@@ -53,7 +53,7 @@ pub fn initialize_hook(config: Configuration) {
             backtrace::Backtrace::capture()
         };
 
-        log::error!("thread '{thread_name}' panicked at {location}:\n{message}\nstack bactrace:\n{backtrace}");
+        log::error!("thread '{thread_name}' panicked at {location}:\n{message}\nstack backtrace:\n{backtrace}");
 
         if let Some(original_hook) = &original_hook {
             original_hook(info);
