@@ -12,6 +12,9 @@ pub struct Configuration {
     /// Keep the originally set panic hook, continuing any normal panic behaviour
     /// and custom panic behaviour set.
     pub keep_original_hook: bool,
+
+    /// Run this callback after logging the panic.
+    pub cleanup: Option<Box<dyn Fn() + Send + Sync>>,
 }
 
 impl Default for Configuration {
@@ -19,6 +22,7 @@ impl Default for Configuration {
         Self {
             force_capture: false,
             keep_original_hook: true,
+            cleanup: None,
         }
     }
 }
@@ -54,6 +58,10 @@ pub fn initialize_hook(config: Configuration) {
         };
 
         log::error!("thread '{thread_name}' panicked at {location}:\n{message}\nstack bactrace:\n{backtrace}");
+
+        if let Some(cleanup) = config.cleanup.as_ref() {
+            cleanup();
+        }
 
         if let Some(original_hook) = &original_hook {
             original_hook(info);
