@@ -12,6 +12,9 @@ pub struct Configuration {
     /// Keep the originally set panic hook, continuing any normal panic behaviour
     /// and custom panic behaviour set.
     pub keep_original_hook: bool,
+
+    /// When set, flush the given logger after we invoke `log::error!()`
+    pub logger: Option<&'static dyn log::Log>,
 }
 
 impl Default for Configuration {
@@ -19,6 +22,7 @@ impl Default for Configuration {
         Self {
             force_capture: false,
             keep_original_hook: true,
+            logger: None,
         }
     }
 }
@@ -54,6 +58,10 @@ pub fn initialize_hook(config: Configuration) {
         };
 
         log::error!("thread '{thread_name}' panicked at {location}:\n{message}\nstack backtrace:\n{backtrace}");
+
+        if let Some(logger) = config.logger {
+            logger.flush();
+        }
 
         if let Some(original_hook) = &original_hook {
             original_hook(info);

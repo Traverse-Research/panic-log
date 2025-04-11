@@ -1,7 +1,7 @@
 #![cfg(test)]
 use std::{
     panic,
-    sync::{Arc, Mutex},
+    sync::{Arc, LazyLock, Mutex},
 };
 
 use panic_log::{initialize_hook, Configuration};
@@ -36,6 +36,7 @@ fn test_original_hook() {
     initialize_hook(Configuration {
         force_capture: true,
         keep_original_hook: true,
+        ..Default::default()
     });
     let _ = panic::catch_unwind(|| panic!("Test"));
 
@@ -55,8 +56,43 @@ fn test_no_original_hook() {
     initialize_hook(Configuration {
         force_capture: true,
         keep_original_hook: false,
+        ..Default::default()
     });
     let _ = panic::catch_unwind(|| panic!("Test"));
 
     assert_eq!(*ran_hook.lock().unwrap(), false);
+}
+
+#[test]
+fn test_flush_logger() {
+    struct Logger {
+        pub flushed: Arc<Mutex<bool>>,
+    }
+
+    impl log::Log for Logger {
+        fn enabled(&self, _metadata: &log::Metadata) -> bool {
+            unimplemented!()
+        }
+
+        fn log(&self, _record: &log::Record) {
+            unimplemented!()
+        }
+
+        fn flush(&self) {
+            *self.flushed.lock().unwrap() = true;
+        }
+    }
+
+    static LOGGER: LazyLock<Logger> = LazyLock::new(|| Logger {
+        flushed: Arc::new(Mutex::new(false)),
+    });
+
+    initialize_hook(Configuration {
+        force_capture: true,
+        keep_original_hook: true,
+        logger: Some(&*LOGGER),
+    });
+    let _ = panic::catch_unwind(|| panic!("Test"));
+
+    assert!(*LOGGER.flushed.lock().unwrap());
 }
