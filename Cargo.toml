@@ -10,6 +10,7 @@ description = "Log panics to the `log` macro as error"
 include = ["src", "LICENSE"]
 categories = ["development-tools", "development-tools::debugging"] # https://crates.io/category_slugs
 keywords = ["log", "panic"]
+rust-version = "1.74"
 
 [dependencies]
 log = "0.4"
