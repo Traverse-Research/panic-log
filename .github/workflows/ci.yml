@@ -25,4 +25,5 @@ jobs:
         run: cargo -Zminimal-versions generate-lockfile
       - uses: dtolnay/rust-toolchain@1.74.0
       - name: Cargo check
-        run: cargo check --workspace --all-targets
+        # skip the tests, which require the lazy_cell feature from Rust 1.80
+        run: cargo check --workspace
