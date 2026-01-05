@@ -40,7 +40,7 @@ fn test_original_hook() {
     });
     let _ = panic::catch_unwind(|| panic!("Test"));
 
-    assert_eq!(*ran_hook.lock().unwrap(), true);
+    assert!(*ran_hook.lock().unwrap());
 }
 
 #[test]
@@ -60,7 +60,7 @@ fn test_no_original_hook() {
     });
     let _ = panic::catch_unwind(|| panic!("Test"));
 
-    assert_eq!(*ran_hook.lock().unwrap(), false);
+    assert!(!*ran_hook.lock().unwrap());
 }
 
 #[test]
