@@ -49,7 +49,12 @@ pub fn initialize_hook(config: Configuration) {
         } else {
             "<unknown location>".to_owned()
         };
-        let message = info.payload().downcast_ref::<&str>().unwrap_or(&"");
+        let message = info
+            .payload()
+            .downcast_ref::<&str>()
+            .copied()
+            .or_else(|| info.payload().downcast_ref::<String>().map(|s| s.as_str()))
+            .unwrap_or("<message is not a string>");
 
         let backtrace = if config.force_capture {
             backtrace::Backtrace::force_capture()
