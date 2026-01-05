@@ -6,25 +6,41 @@ use std::{
 
 use panic_log::{initialize_hook, Configuration};
 
+// The test binary runs all tests in parallel by default; this lets multiple tests overwrite the
+// panic hook concurrently and cause spurious failure.
+static SERIAL_TEST: Mutex<()> = Mutex::new(());
+
 #[test]
 #[should_panic]
 fn test() {
+    let _serial = SERIAL_TEST.lock().unwrap();
+
     initialize_hook(Configuration::default());
+
+    // Drop the lock to not poison it
+    drop(_serial);
     panic!("Test");
 }
 
 #[test]
 #[should_panic]
 fn test_forced_trace() {
+    let _serial = SERIAL_TEST.lock().unwrap();
+
     initialize_hook(Configuration {
         force_capture: true,
         ..Default::default()
     });
+
+    // Drop the lock to not poison it
+    drop(_serial);
     panic!("Test");
 }
 
 #[test]
 fn test_original_hook() {
+    let _serial = SERIAL_TEST.lock().unwrap();
+
     let original_hook = panic::take_hook();
     let ran_hook = Arc::new(Mutex::new(false));
     let ran_hook_copy = Arc::clone(&ran_hook);
@@ -45,6 +61,8 @@ fn test_original_hook() {
 
 #[test]
 fn test_no_original_hook() {
+    let _serial = SERIAL_TEST.lock().unwrap();
+
     let original_hook = panic::take_hook();
     let ran_hook = Arc::new(Mutex::new(false));
     let ran_hook_copy = Arc::clone(&ran_hook);
@@ -65,6 +83,8 @@ fn test_no_original_hook() {
 
 #[test]
 fn test_flush_logger() {
+    let _serial = SERIAL_TEST.lock().unwrap();
+
     struct Logger {
         pub flushed: Arc<Mutex<bool>>,
     }
