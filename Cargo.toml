@@ -13,4 +13,4 @@ keywords = ["log", "panic"]
 rust-version = "1.74"
 
 [dependencies]
-log = "0.4"
+log = "0.4.4"
