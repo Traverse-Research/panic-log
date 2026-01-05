@@ -19,7 +19,7 @@ Add this to your Cargo.toml:
 
 ```toml
 [dependencies]
-panic-log = "0.3.0"
+panic-log = "0.3.1"
 ```
 
 Call this somewhere at the start of your program (after initializing your logger):
