@@ -23,7 +23,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@nightly
       - name: Generate minimal-version dependencies
         run: cargo -Zminimal-versions generate-lockfile
-      - uses: dtolnay/rust-toolchain@1.74.0
+      - uses: dtolnay/rust-toolchain@1.120.0
       - name: Cargo check
         # skip the tests, which require the lazy_cell feature from Rust 1.80
         run: cargo check --workspace
